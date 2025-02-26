@@ -16,7 +16,7 @@ const route = useRoute()
           Using a Boilerplate</h1>
         <p class="mt-4 text-base">Streamline your development process with integrated authentication, powered by Vue and
           Django.</p>
-        <Button variant="outline" class="mt-3">Get Started</Button>
+        <Button variant="outline" class="mt-3"><NuxtLink to="/register">Get Started</NuxtLink></Button>
       </div>
     </div>
 

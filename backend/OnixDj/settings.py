@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Auth
+# Auth ------------------------------
 HEADLESS_ONLY = True
 
 HEADLESS_FRONTEND_URLS = {
@@ -35,6 +35,15 @@ HEADLESS_FRONTEND_URLS = {
     "account_reset_password_from_key": "https://app.org/account/password/reset/key/{key}",
     "account_signup": "https://app.org/account/signup",
 }
+AUTH_USER_MODEL = "users.CustomUser"
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGIN_METHODS = {'email'}
+
+# Auth end ------------------------------
 
 # HEADLESS_SERVE_SPECIFICATION = True
 
@@ -50,6 +59,7 @@ INSTALLED_APPS = [
     # Auth
     'allauth.headless',
     'allauth.account',
+    "users",
 
 ]
 
