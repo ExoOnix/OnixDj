@@ -30,7 +30,18 @@ ALLOWED_HOSTS = []
 # Auth
 AUTH_USER_MODEL = "users.CustomUser"
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    )
+}
 
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'refresh_cookie',
+    'LOGIN_SERIALIZER': 'users.serializers.CustomLoginSerializer',
+}
 
 # Application definition
 
@@ -41,9 +52,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # Rest framework
+    'rest_framework',
+    'rest_framework.authtoken',
     # Auth
     'users',
+    'dj_rest_auth',
 ]
 
 MIDDLEWARE = [
