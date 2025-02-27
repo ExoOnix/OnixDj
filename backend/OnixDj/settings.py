@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-i(#wq+z9yj3pb*t$!xkxmx+3hk*og-mq$j27jnwlzc-f6&jg8q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = []
+
+SITE_ID = 1
 
 # Auth
 AUTH_USER_MODEL = "users.CustomUser"
@@ -41,7 +44,24 @@ REST_AUTH = {
     'JWT_AUTH_COOKIE': 'auth',
     'JWT_AUTH_REFRESH_COOKIE': 'refresh_cookie',
     'LOGIN_SERIALIZER': 'users.serializers.CustomLoginSerializer',
+    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
 }
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+
+# EMAILS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = False  # MailHog doesn't require TLS
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 
 # Application definition
 
@@ -52,12 +72,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     # Rest framework
     'rest_framework',
     'rest_framework.authtoken',
     # Auth
     'users',
     'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +93,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Auth
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'OnixDj.urls'
@@ -75,7 +103,7 @@ ROOT_URLCONF = 'OnixDj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
