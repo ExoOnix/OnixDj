@@ -45,6 +45,9 @@ REST_AUTH = {
     'JWT_AUTH_REFRESH_COOKIE': 'refresh_cookie',
     'LOGIN_SERIALIZER': 'users.serializers.CustomLoginSerializer',
     'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
+
+    # Optional
+    "JWT_AUTH_HTTPONLY": False,
 }
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
