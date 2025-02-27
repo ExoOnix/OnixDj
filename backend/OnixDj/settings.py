@@ -20,32 +20,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8ng2x09p9=lu=l##5*j&v+^cd6%r3%#dk2_u*etdf^2j6m7ug7'
+SECRET_KEY = 'django-insecure-i(#wq+z9yj3pb*t$!xkxmx+3hk*og-mq$j27jnwlzc-f6&jg8q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Auth ------------------------------
-HEADLESS_ONLY = True
-
-HEADLESS_FRONTEND_URLS = {
-    "account_confirm_email": "https://app.project.org/account/verify-email/{key}",
-    "account_reset_password_from_key": "https://app.org/account/password/reset/key/{key}",
-    "account_signup": "https://app.org/account/signup",
-}
+# Auth
 AUTH_USER_MODEL = "users.CustomUser"
 
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_LOGIN_METHODS = {'email'}
 
-# Auth end ------------------------------
-
-# HEADLESS_SERVE_SPECIFICATION = True
 
 # Application definition
 
@@ -56,11 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Auth
-    'allauth.headless',
-    'allauth.account',
-    "users",
 
+    # Auth
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -71,9 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # Auth
-    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'OnixDj.urls'
