@@ -1,8 +1,9 @@
 from django.http import JsonResponse
 import requests
+from django.conf import settings
 
 def custom_confirm_email_view(request, key):
-    base_url = request.build_absolute_uri('/api/')[:-1]
+    base_url = request.build_absolute_uri(f'/{settings.BASE_URL}api/')[:-1]
     api_url = f"{base_url}/dj-rest-auth/registration/verify-email/"
 
     response = requests.post(api_url, json={"key": key})
