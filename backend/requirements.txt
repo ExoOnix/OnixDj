@@ -1,0 +1,6 @@
+django==5.1.6
+django-rest-framework==0.1.0
+dj-rest-auth[with_social]==7.0.1
+django-allauth==65.4.1
+djangorestframework-simplejwt==5.5.0
+requests==2.32.3
