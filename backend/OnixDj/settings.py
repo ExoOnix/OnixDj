@@ -11,22 +11,26 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_URL = ""
 
+ENVIRONMENT = os.getenv("DJANGO_ENV", "development")
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i(#wq+z9yj3pb*t$!xkxmx+3hk*og-mq$j27jnwlzc-f6&jg8q'
+SECRET_KEY = os.environ.get("SECRET_KEY", 'django-insecure-i(#wq+z9yj3pb*t$!xkxmx+3hk*og-mq$j27jnwlzc-f6&jg8q')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 SITE_ID = 1
 
@@ -55,7 +59,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
 # EMAILS
@@ -97,6 +101,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+    # Whitenoise
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     # Auth
     "allauth.account.middleware.AccountMiddleware",
 ]
@@ -124,13 +130,26 @@ WSGI_APPLICATION = 'OnixDj.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if ENVIRONMENT != "production":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.{}'.format(
+                os.getenv('DATABASE_ENGINE', 'sqlite3')
+            ),
+            'NAME': os.getenv('DATABASE_NAME', 'polls'),
+            'USER': os.getenv('DATABASE_USERNAME', 'myprojectuser'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
+            'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
+            'PORT': os.getenv('DATABASE_PORT', 5432),
+        }
+    }
 
 
 # Password validation
@@ -169,6 +188,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
