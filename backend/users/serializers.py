@@ -1,4 +1,4 @@
-from dj_rest_auth.serializers import LoginSerializer
+from dj_rest_auth.serializers import LoginSerializer, UserDetailsSerializer
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
@@ -6,6 +6,19 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 
 User = get_user_model()
+
+class CustomUserDetailsSerializer(UserDetailsSerializer):
+    class Meta:
+        extra_fields = []
+        # see https://github.com/iMerica/dj-rest-auth/issues/181
+        # UserModel.XYZ causing attribute error while importing other
+        # classes from `serializers.py`. So, we need to check whether the auth model has
+        # the attribute or not
+        if hasattr(User, 'EMAIL_FIELD'):
+            extra_fields.append(User.EMAIL_FIELD)
+        model = User
+        fields = ('pk', *extra_fields)
+        read_only_fields = ('email',)
 
 
 class CustomLoginSerializer(LoginSerializer):
@@ -32,7 +45,7 @@ class CustomLoginSerializer(LoginSerializer):
             raise serializers.ValidationError(msg, code='authorization')
                 # Did we get back an active user?
 
-                
+
         self.validate_auth_user_status(user)
 
         # If required, is the email verified?
