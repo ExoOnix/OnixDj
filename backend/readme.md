@@ -8,3 +8,4 @@ python3 manage.py migrate
 export DEBUG=True
 
 python3 manage.py runserver
+```

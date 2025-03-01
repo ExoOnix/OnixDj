@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from django.contrib.auth import get_user_model
+from django.conf import settings
 
 User = get_user_model()
 
@@ -29,6 +30,14 @@ class CustomLoginSerializer(LoginSerializer):
         else:
             msg = 'Must include "email" and "password".'
             raise serializers.ValidationError(msg, code='authorization')
+                # Did we get back an active user?
+
+                
+        self.validate_auth_user_status(user)
+
+        # If required, is the email verified?
+        if 'dj_rest_auth.registration' in settings.INSTALLED_APPS:
+            self.validate_email_verification_status(user, email=email)
 
         attrs['user'] = user
         return attrs
