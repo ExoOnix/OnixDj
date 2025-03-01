@@ -91,4 +91,5 @@ db.sqlite3
 .venv/
 
 # Openapi schema
-schema.yaml
+schema.yml
+openapi-schema.json
