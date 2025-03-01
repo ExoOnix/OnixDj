@@ -17,7 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from dj_rest_auth.registration.views import VerifyEmailView
-from users.views import custom_confirm_email_view
 from django.conf import settings
 
 urlpatterns = [

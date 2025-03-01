@@ -61,6 +61,8 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
+EMAIL_CONFIRM_REDIRECT_BASE_URL = \
+    "http://localhost:3000/email/confirm/"
 
 # EMAILS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
