@@ -89,3 +89,6 @@ local_settings.py
 db.sqlite3
 
 .venv/
+
+# Openapi schema
+schema.yaml

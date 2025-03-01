@@ -40,7 +40,8 @@ AUTH_USER_MODEL = "users.CustomUser"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    )
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 REST_AUTH = {
@@ -92,6 +93,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+
+    # Specs
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -202,3 +206,13 @@ STORAGES = {
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# DRF SPEC
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'OnixDj Backend',
+    'DESCRIPTION': 'A backend api for nuxt and other web apps with auth.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
