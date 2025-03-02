@@ -216,6 +216,7 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'A backend api for nuxt and other web apps with auth.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': False,
     # OTHER SETTINGS
     'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
