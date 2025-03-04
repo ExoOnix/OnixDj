@@ -11,35 +11,18 @@ services:
 
   db:
     image: postgres:17
-    environment:
-      POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_USER: ${DATABASE_USERNAME}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
-      - .env
+      - .envs/local/.env
  
   backend:
     build: ./backend
     command: sh -c "python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 --workers 3 OnixDj.wsgi:application"
     depends_on:
       - db
-    environment:
-      DJANGO_ENV: ${DJANGO_ENV}
-      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-      DEBUG: ${DEBUG}
-      DJANGO_LOGLEVEL: ${DJANGO_LOGLEVEL}
-      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
-      DATABASE_ENGINE: ${DATABASE_ENGINE}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USERNAME: ${DATABASE_USERNAME}
-  
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
     env_file:
-      - .env
+      - .envs/local/.env
   frontend:
     build: ./frontend
 volumes:
