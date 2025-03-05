@@ -25,7 +25,11 @@ services:
       - .envs/local/.env
  
   backend:
-    build: ./backend
+    build:
+      context: backend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend:/app
     command: sh -c "python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 --workers 3 OnixDj.wsgi:application"
     depends_on:
       - db
