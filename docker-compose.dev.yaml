@@ -7,4 +7,32 @@ services:
       ports:
         - "1025:1025"
         - "8025:8025"
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
 
+  db:
+    image: postgres:17
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .envs/local/.env
+ 
+  backend:
+    build: ./backend
+    command: sh -c "python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 --workers 3 OnixDj.wsgi:application"
+    depends_on:
+      - db
+    env_file:
+      - .envs/local/.env
+  frontend:
+    build: ./frontend
+
+volumes:
+   postgres_data:
