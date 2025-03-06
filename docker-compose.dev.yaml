@@ -36,7 +36,11 @@ services:
     env_file:
       - .envs/local/.env
   frontend:
-    build: ./frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend:/app
 
 volumes:
    postgres_data:
