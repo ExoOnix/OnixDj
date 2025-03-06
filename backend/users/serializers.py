@@ -7,13 +7,14 @@ from django.conf import settings
 
 User = get_user_model()
 
+
 class CustomUserDetailsSerializer(UserDetailsSerializer):
     class Meta:
         extra_fields = []
         # see https://github.com/iMerica/dj-rest-auth/issues/181
         # UserModel.XYZ causing attribute error while importing other
-        # classes from `serializers.py`. So, we need to check whether the auth model has
-        # the attribute or not
+        # classes from `serializers.py`.
+        # So, we need to check whether the auth model has the attribute or not
         if hasattr(User, 'EMAIL_FIELD'):
             extra_fields.append(User.EMAIL_FIELD)
         model = User
@@ -43,8 +44,6 @@ class CustomLoginSerializer(LoginSerializer):
         else:
             msg = 'Must include "email" and "password".'
             raise serializers.ValidationError(msg, code='authorization')
-                # Did we get back an active user?
-
 
         self.validate_auth_user_status(user)
 
@@ -64,9 +63,11 @@ class CustomRegisterSerializer(RegisterSerializer):
 
     def validate_email(self, email):
         if User.objects.filter(email=email).exists():
-            raise serializers.ValidationError("This email is already registered.")
+            raise serializers.ValidationError(
+                "This email is already registered."
+            )
         return email
-    
+
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
         return {

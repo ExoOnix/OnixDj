@@ -6,6 +6,8 @@ djangorestframework-simplejwt==5.5.0
 requests==2.32.3
 drf-spectacular==0.28.0
 drf_spectacular_sidecar==2025.2.1
+flake8==7.1.2
+
 # Prod
 gunicorn==23.0.0
 whitenoise==6.9.0
