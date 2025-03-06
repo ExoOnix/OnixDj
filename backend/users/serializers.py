@@ -15,11 +15,11 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
         # UserModel.XYZ causing attribute error while importing other
         # classes from `serializers.py`.
         # So, we need to check whether the auth model has the attribute or not
-        if hasattr(User, 'EMAIL_FIELD'):
+        if hasattr(User, "EMAIL_FIELD"):
             extra_fields.append(User.EMAIL_FIELD)
         model = User
-        fields = ('pk', *extra_fields)
-        read_only_fields = ('email',)
+        fields = ("pk", *extra_fields)
+        read_only_fields = ("email",)
 
 
 class CustomLoginSerializer(LoginSerializer):
@@ -33,25 +33,25 @@ class CustomLoginSerializer(LoginSerializer):
 
     def validate(self, attrs):
         # Override the validate method to use email instead of username
-        email = attrs.get('email')
-        password = attrs.get('password')
+        email = attrs.get("email")
+        password = attrs.get("password")
 
         if email and password:
             user = self.get_auth_user(email, password)
             if not user:
-                msg = 'Unable to log in with provided credentials.'
-                raise serializers.ValidationError(msg, code='authorization')
+                msg = "Unable to log in with provided credentials."
+                raise serializers.ValidationError(msg, code="authorization")
         else:
             msg = 'Must include "email" and "password".'
-            raise serializers.ValidationError(msg, code='authorization')
+            raise serializers.ValidationError(msg, code="authorization")
 
         self.validate_auth_user_status(user)
 
         # If required, is the email verified?
-        if 'dj_rest_auth.registration' in settings.INSTALLED_APPS:
+        if "dj_rest_auth.registration" in settings.INSTALLED_APPS:
             self.validate_email_verification_status(user, email=email)
 
-        attrs['user'] = user
+        attrs["user"] = user
         return attrs
 
 
@@ -71,7 +71,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
         return {
-            'email': data.get('email'),
-            'password1': data.get('password1'),
-            'password2': data.get('password2'),
+            "email": data.get("email"),
+            "password1": data.get("password1"),
+            "password2": data.get("password2"),
         }
