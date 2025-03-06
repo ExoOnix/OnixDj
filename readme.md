@@ -1,1 +1,1 @@
-1. Install precommit
+1. Install precommit by running `pip3 install -r requirements.dev.txt`
