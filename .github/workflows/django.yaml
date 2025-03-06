@@ -3,10 +3,10 @@ name: Django Tests
 on:
   push:
     paths:
-      - 'backend/'
+      - 'backend/*'
   pull_request:
     paths:
-      - 'backend/'
+      - 'backend/*'
 
 jobs:
   django-test:
