@@ -30,7 +30,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./backend:/app
-    command: sh -c "python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 --workers 3 OnixDj.wsgi:application"
+    command: sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
     env_file:
