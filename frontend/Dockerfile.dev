@@ -6,12 +6,8 @@ FROM node:${NODE_VERSION}
 # Set the working directory
 WORKDIR /app
 
-# Install dependencies
-COPY package*.json ./
-RUN npm install
+COPY . ./
 
-# Copy the rest of the application files
-COPY . .
 
 # Set environment variables
 ENV HOST=0.0.0.0
@@ -21,4 +17,4 @@ ENV PORT=3000
 EXPOSE $PORT
 
 # Start the development server
-CMD ["npm", "run", "dev"]
+CMD sh -c "npm i && npm run dev"
