@@ -41,6 +41,13 @@ jobs:
         with:
           node-version: '22'  # Specify your desired Node.js version
 
+      - name: Modify package.json to add publishConfig
+        run: |
+          # Modify package.json to add the publishConfig section
+          jq '. + { "publishConfig": { "registry": "https://npm.pkg.github.com" } }' OnixDjClient/package.json > tmp.json && mv tmp.json OnixDjClient/package.json
+        # Install jq tool to modify the JSON file
+        run: sudo apt-get install jq
+
       - name: Publish OnixDjClient to GitHub npm registry
         if: success()  # Only run if previous steps succeed
         run: |
