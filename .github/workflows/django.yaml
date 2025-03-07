@@ -11,7 +11,6 @@ on:
 jobs:
   django-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out source repository
         uses: actions/checkout@v3
@@ -30,33 +29,3 @@ jobs:
         run: |
           cd backend
           python3 manage.py test
-
-      - name: Run `make genclient` to generate the client
-        if: success()  # Only run if the tests pass
-        run: |
-          make genclient
-
-      - name: Set up npm
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'  # Specify your desired Node.js version
-
-      - name: Modify package.json to add publishConfig
-        run: |
-          # Install jq tool to modify the JSON file
-          sudo apt-get install jq
-          
-          # Modify package.json to add the publishConfig section
-          jq '. + { "publishConfig": { "registry": "https://npm.pkg.github.com" } }' OnixDjClient/package.json > tmp.json && mv tmp.json OnixDjClient/package.json
-
-      - name: Publish OnixDjClient to GitHub npm registry
-        if: success()  # Only run if previous steps succeed
-        run: |
-          # Change directory to the folder that contains the package.json
-          cd OnixDjClient
-
-          # Set up npm registry
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-
-          # Publish package to GitHub npm registry
-          npm publish --registry https://npm.pkg.github.com
