@@ -3,6 +3,8 @@ ARG NODE_VERSION=22.13.1
 # Create build stage
 FROM node:${NODE_VERSION}
 
+RUN apt update && apt install -y openjdk-17-jdk
+
 # Set the working directory
 WORKDIR /app
 
@@ -17,4 +19,4 @@ ENV PORT=3000
 EXPOSE $PORT
 
 # Start the development server
-CMD sh -c "npm i && npm run dev"
+CMD sh -c "npm i && npm run genclient && npm run dev"

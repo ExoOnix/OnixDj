@@ -25,5 +25,7 @@ services:
       - .envs/production/.env
   frontend:
     build: ./frontend
+    depends_on:
+      - backend
 volumes:
    postgres_data:

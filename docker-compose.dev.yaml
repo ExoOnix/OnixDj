@@ -41,6 +41,8 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./frontend:/app
+    depends_on:
+      - backend
 
 volumes:
    postgres_data:
