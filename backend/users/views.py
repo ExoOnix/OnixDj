@@ -5,7 +5,6 @@ from dj_rest_auth.utils import jwt_encode
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import login as django_login
-from rest_framework.decorators import api_view
 
 
 def custom_confirm_email_view(request, key):
@@ -42,8 +41,3 @@ class CustomVerifyEmailView(VerifyEmailView):
         # Optionally, set the refresh token as an HTTP-only cookie
         response = Response(response_data, status=status.HTTP_200_OK)
         return response
-
-
-@api_view(["GET"])
-def hello_view(request):
-    return Response("Hello, world!", content_type="text/plain")
