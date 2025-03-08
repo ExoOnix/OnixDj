@@ -225,9 +225,41 @@ paths:
               schema:
                 $ref: '#/components/schemas/RestAuthDetail'
           description: ''
-  /api/dj-rest-auth/registration/verify-email/:
+  /api/dj-rest-auth/registration/verify-email:
     post:
       operationId: dj_rest_auth_registration_verify_email_create
+      description: |-
+        Verifies the email associated with the provided key.
+
+        Accepts the following POST parameter: key.
+      tags:
+      - dj-rest-auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyEmail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifyEmail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyEmail'
+        required: true
+      security:
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyEmail'
+          description: ''
+  /api/dj-rest-auth/registration/verify-email/:
+    post:
+      operationId: dj_rest_auth_registration_verify_email_create_2
       description: |-
         Verifies the email associated with the provided key.
 

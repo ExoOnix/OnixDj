@@ -13,6 +13,11 @@ urlpatterns = [
         CustomVerifyEmailView.as_view(),
         name="custom_verify_email",
     ),
+    path(
+        "dj-rest-auth/registration/verify-email",
+        CustomVerifyEmailView.as_view(),
+        name="custom_verify_email",
+    ),
     path("dj-rest-auth/", include("dj_rest_auth.urls")),
     path(
         "dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")
