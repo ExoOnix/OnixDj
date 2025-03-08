@@ -403,11 +403,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/CustomUserDetails'
           description: ''
-  /api/helloviewtest/:
+  /api/helloview/:
     get:
-      operationId: helloviewtest_retrieve
+      operationId: helloview_retrieve
       tags:
-      - helloviewtest
+      - helloview
       security:
       - jwtHeaderAuth: []
       - jwtCookieAuth: []
