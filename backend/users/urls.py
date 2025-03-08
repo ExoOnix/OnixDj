@@ -18,5 +18,5 @@ urlpatterns = [
     path(
         "dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")
     ),
-    path("helloview/", hello_view),
+    path("helloviewtest/", hello_view),
 ]
