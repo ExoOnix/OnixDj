@@ -403,6 +403,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/CustomUserDetails'
           description: ''
+  /api/helloview/:
+    get:
+      operationId: helloview_retrieve
+      tags:
+      - helloview
+      security:
+      - jwtHeaderAuth: []
+      - jwtCookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
 components:
   schemas:
     CustomLogin:
