@@ -9,6 +9,6 @@ repos:
     hooks:
       - id: generate-api-schema
         name: Generate API Schema
-        entry: bash -c "cd backend && python3 manage.py spectacular --file ../frontend/api-schema.yml"
+        entry: bash -c "cd backend && python3 manage.py spectacular --file ../frontend/api-schema.yml && git add ../frontend/api-schema.yml"
         language: system
         pass_filenames: false
