@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "genclient": "openapi-generator-cli generate -i http://backend:8000/api/schema -g typescript-fetch -o ./OnixDjClient",
+    "genclient": "openapi-generator-cli generate -i ./api-schema.yml -g typescript-fetch -o ./lib/OnixDjClient",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",

@@ -3,6 +3,9 @@ ARG NODE_VERSION=22.13.1
 # Create build stage
 FROM node:${NODE_VERSION}-slim AS build
 
+RUN apt update && apt install -y openjdk-17-jdk
+
+
 # Enable pnpm
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -20,6 +23,9 @@ RUN npm install --shamefully-hoist
 
 # Copy the rest of the application files to the working directory
 COPY . ./
+COPY ./api-schema.yml ./
+
+RUN npm run genclient
 
 # Build the application
 RUN npm run build
