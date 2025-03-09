@@ -3,20 +3,17 @@ import Navbar from '@/components/modules/navbar/Navbar.vue'
 import { Button } from '@/components/ui/button'
 
 const route = useRoute()
-const { token, setToken } = useAccessToken();
 
 
-import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
- const apiConfig = new Configuration({
-  accessToken: token.value
-})
-const client = new DjRestAuthApi(apiConfig);
+// const { token, setToken } = useAccessToken();
 
+// import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
+//  const apiConfig = new Configuration({
+//   accessToken: () => {return token.value}
+// })
+// const client = new DjRestAuthApi(apiConfig);
 
-client.djRestAuthUserRetrieve().then((result) => {
-  // do something with the API result here
-  console.log('your employees are ', result); 
-});</script>
+</script>
 
 <template>
   <div>
