@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "genclient": "openapi-generator-cli generate -i ./api-schema.yml -g typescript-fetch -o ./lib/api/ApiClient",
+    "genclient": "openapi-generator-cli generate -i ./api-schema.yml -g typescript-fetch -o ./lib/ApiClient",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",

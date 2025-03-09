@@ -1,3 +1,9 @@
 export const useAccessToken = () => {
-    return useState('accessToken', () => null)
+    const token = ref("");
+
+    const setToken = (value: string) => {
+        token.value = value
+    };
+
+    return { token, setToken };
 }
