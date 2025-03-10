@@ -27,6 +27,8 @@ const handleLogin = async () => {
   });
   console.log(response)
 }
+
+// TODO: add vue query
 </script>
 
 <template>
