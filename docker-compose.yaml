@@ -24,7 +24,9 @@ services:
     env_file:
       - .envs/production/.env
   frontend:
-    build: ./frontend
+    build:
+      context: .
+      dockerfile: ./compose/production/frontend/Dockerfile
     depends_on:
       - backend
 volumes:

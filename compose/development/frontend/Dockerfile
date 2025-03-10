@@ -8,7 +8,7 @@ RUN apt update && apt install -y openjdk-17-jdk
 # Set the working directory
 WORKDIR /app
 
-COPY . ./
+COPY ./frontend ./
 
 
 # Set environment variables

@@ -15,15 +15,15 @@ RUN corepack enable
 WORKDIR /app
 
 # Copy package.json and pnpm-lock.yaml files to the working directory
-COPY ./package.json /app/
-COPY ./package-lock.json /app/
+COPY ./frontend/package.json /app/
+COPY ./frontend/package-lock.json /app/
 
 ## Install dependencies
 RUN npm install --shamefully-hoist
 
 # Copy the rest of the application files to the working directory
-COPY . ./
-COPY ./api-schema.yml ./
+COPY ./frontend ./
+COPY ./frontend/api-schema.yml ./
 
 RUN npm run genclient
 

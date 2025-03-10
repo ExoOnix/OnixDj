@@ -37,8 +37,8 @@ services:
       - .envs/local/.env
   frontend:
     build:
-      context: frontend
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: ./compose/development/frontend/Dockerfile
     volumes:
       - ./frontend:/app
     depends_on:
