@@ -3,6 +3,3 @@ dev:
 
 prod:
 	docker compose up --build
-
-genschema:
-	(cd backend && python3 manage.py spectacular --file ../frontend/api-schema.yml)

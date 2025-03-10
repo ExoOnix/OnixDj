@@ -1,11 +1,12 @@
 # 1: Setup
 
-1. Install precommit by running `pip3 install -r requirements.dev.txt`.
+
+1. Install precommit by running (optional) `pip3 install -r requirements.dev.txt`.
 
 # 2: Development
 
-2. Run development compose: `docker compose -f docker-compose.dev.yaml up --build`.
+2. Run development compose: `make dev`.
 
 # 2: Production
 
-2. Run development compose: `docker compose up --build`.
+2. Run development compose: `make prod`.
