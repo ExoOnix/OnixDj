@@ -17,7 +17,9 @@ services:
       - .envs/production/.env
  
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: ./compose/production/backend/Dockerfile
     command: sh -c "python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 --workers 3 OnixDj.wsgi:application"
     depends_on:
       - db

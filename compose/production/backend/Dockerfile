@@ -15,7 +15,7 @@ ENV PYTHONUNBUFFERED=1
 RUN pip install --upgrade pip 
 
 # Copy the requirements file first (better caching)
-COPY requirements.txt /app/
+COPY ./backend/requirements.txt /app/
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -35,7 +35,7 @@ COPY --from=builder /usr/local/bin/ /usr/local/bin/
 WORKDIR /app
 
 # Copy application code
-COPY --chown=appuser:appuser . .
+COPY --chown=appuser:appuser ./backend/ .
 
 # Set environment variables to optimize Python
 ENV PYTHONDONTWRITEBYTECODE=1

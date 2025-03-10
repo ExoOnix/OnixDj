@@ -9,13 +9,13 @@ RUN mkdir /app
 WORKDIR /app
 
 # Copy the requirements file and install dependencies
-COPY requirements.txt /app/
+COPY ./backend/requirements.txt /app/
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code (ensure this is after dependencies are installed)
-COPY . /app/
+COPY ./backend/ /app/
 
 # Expose the application port for development
 EXPOSE 8000

@@ -26,8 +26,8 @@ services:
  
   backend:
     build:
-      context: backend
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: ./compose/development/backend/Dockerfile
     volumes:
       - ./backend:/app
     command: sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
