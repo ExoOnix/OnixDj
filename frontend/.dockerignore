@@ -18,3 +18,4 @@ logs
 .fleet
 .idea
 
+./api-schema.yml
