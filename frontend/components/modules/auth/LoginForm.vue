@@ -27,7 +27,6 @@ const handleLogin = async () => {
   });
   console.log(response)
 }
-handleLogin()
 </script>
 
 <template>
