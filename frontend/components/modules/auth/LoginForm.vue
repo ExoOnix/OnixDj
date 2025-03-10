@@ -6,10 +6,32 @@ import { Label } from '@/components/ui/label'
 import { defineComponent } from 'vue'
 
 defineComponent({})
+
+const { token, setToken } = useAccessToken();
+
+import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
+ const apiConfig = new Configuration({
+  accessToken: () => {return token.value}
+})
+const client = new DjRestAuthApi(apiConfig);
+
+const email = ref('')
+const password = ref('')
+
+const handleLogin = async () => {
+  const response = await client.djRestAuthLoginCreate({
+    customLogin: {
+      email: email.value,
+      password: password.value
+    }
+  });
+  console.log(response)
+}
+handleLogin()
 </script>
 
 <template>
-  <form :class="cn('flex flex-col gap-6')">
+  <form :class="cn('flex flex-col gap-6')" @submit.prevent="handleLogin">
     <div class="flex flex-col items-center gap-2 text-center">
       <h1 class="text-2xl font-bold">
         Login to your account
@@ -21,7 +43,7 @@ defineComponent({})
     <div class="grid gap-6">
       <div class="grid gap-2">
         <Label for="email">Email</Label>
-        <Input id="email" type="email" placeholder="m@example.com" required />
+        <Input id="email" type="email" placeholder="m@example.com" v-model="email" required />
       </div>
       <div class="grid gap-2">
         <div class="flex items-center">
@@ -30,7 +52,7 @@ defineComponent({})
             Forgot your password?
           </a>
         </div>
-        <Input id="password" type="password" placeholder="••••••••" required />
+        <Input id="password" type="password" placeholder="••••••••" v-model="password" required />
       </div>
       <Button type="submit" class="w-full">
         Login
