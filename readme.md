@@ -1,8 +1,7 @@
 # 1: Setup
 
 
-1. Install precommit by running (optional) `pip3 install -r requirements.dev.txt`.
-
+1. Install precommit using their guide.
 # 2: Development
 
 2. Run development compose: `make dev`.
