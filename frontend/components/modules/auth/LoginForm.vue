@@ -3,32 +3,37 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { defineComponent } from 'vue'
+import { ref } from 'vue'
+import { useAsyncData } from '#app'
+import { Configuration, DjRestAuthApi } from '@/lib/ApiClient'
 
-defineComponent({})
+const { token, setToken } = useAccessToken()
 
-const { token, setToken } = useAccessToken();
-
-import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
- const apiConfig = new Configuration({
-  accessToken: () => {return token.value}
+const apiConfig = new Configuration({
+  accessToken: () => token.value
 })
-const client = new DjRestAuthApi(apiConfig);
+const client = new DjRestAuthApi(apiConfig)
 
 const email = ref('')
 const password = ref('')
 
-const handleLogin = async () => {
-  const response = await client.djRestAuthLoginCreate({
+const { data, status, error, refresh } = useAsyncData('login', async () => {
+  if (!email.value || !password.value) return null
+  return await client.djRestAuthLoginCreate({
     customLogin: {
       email: email.value,
       password: password.value
     }
-  });
-  console.log(response)
-}
+  })
+}, { immediate: false })
 
-// TODO: add vue query
+const handleLogin = async () => {
+  await refresh()
+  if (data.value) {
+    // console.log('Login successful:', data.value)
+    setToken(data.value.access)
+  }
+}
 </script>
 
 <template>
@@ -37,7 +42,7 @@ const handleLogin = async () => {
       <h1 class="text-2xl font-bold">
         Login to your account
       </h1>
-      <p class="text-balance text-sm text-muted-foreground">
+      <p class="text-sm text-muted-foreground">
         Enter your email below to login to your account
       </p>
     </div>
@@ -55,12 +60,16 @@ const handleLogin = async () => {
         </div>
         <Input id="password" type="password" placeholder="••••••••" v-model="password" required />
       </div>
-      <Button type="submit" class="w-full">
-        Login
+      <Button type="submit" class="w-full" :disabled="status == 'pending'">
+        <span v-if="status == 'pending'">Logging in...</span>
+        <span v-else>Login</span>
       </Button>
     </div>
+    <p v-if="error" class="text-red-500 text-sm text-center">
+      {{ error.message }}
+    </p>
   </form>
-  <div>
+    <div>
     <div style="margin-top:15px;"
       class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
       <span class="relative z-10 bg-background px-2 text-muted-foreground">
