@@ -3,6 +3,9 @@ import { Button } from '@/components/ui/button'
 import { defineComponent } from 'vue'
 
 defineComponent({})
+
+const { isLoggedIn } = useUser();
+
 </script>
 
 
@@ -11,7 +14,7 @@ defineComponent({})
         <div class="text-2xl font-bold">
             <NuxtLink to="/">Onix Boilerplate</NuxtLink>
         </div>
-        <ul class="flex space-x-4">
+        <ul v-if="isLoggedIn" class="flex space-x-4">
             <Button asChild>
                 <NuxtLink to="/login">Login</NuxtLink>
             </Button>

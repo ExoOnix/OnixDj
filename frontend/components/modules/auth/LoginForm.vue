@@ -30,8 +30,8 @@ const { data, status, error, refresh } = useAsyncData('login', async () => {
 const handleLogin = async () => {
   await refresh()
   if (data.value) {
-    // console.log('Login successful:', data.value)
     setToken(data.value.access)
+    console.log('Login successful:', token.value)
   }
 }
 </script>
