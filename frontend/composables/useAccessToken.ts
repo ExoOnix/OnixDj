@@ -48,7 +48,6 @@ export const useAccessToken = () => {
                 }
             }
         } catch (error) {
-            console.error("Error decoding token:", error);
             setToken("")
         }
     };
