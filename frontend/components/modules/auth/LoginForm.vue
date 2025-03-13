@@ -3,41 +3,35 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ref } from 'vue'
-import { useAsyncData } from '#app'
-import { Configuration, DjRestAuthApi } from '@/lib/ApiClient'
 
-const { token, setToken } = useAccessToken()
 
-const apiConfig = new Configuration({
-  accessToken: () => token.value
-})
-const client = new DjRestAuthApi(apiConfig)
 
-const email = ref('')
-const password = ref('')
 
-const { data, status, error, refresh } = useAsyncData('login', async () => {
-  if (!email.value || !password.value) return null
-  return await client.djRestAuthLoginCreate({
-    customLogin: {
-      email: email.value,
-      password: password.value
-    }
-  })
-}, { immediate: false })
+const { signIn } = useAuth()
 
-const handleLogin = async () => {
-  await refresh()
-  if (data.value) {
-    setToken(data.value.access)
-    console.log('Login successful:', token.value)
+const email = ref("")
+const password = ref("")
+const errorMessage = ref(false);
+
+const handleSubmit = async () => {
+  const res = await signIn('credentials', {
+    redirect: false,
+    email: email.value,
+    password: password.value,
+  });
+
+  if (res?.error) {
+    errorMessage.value = true;
   }
-}
+  else {
+    await navigateTo('/')
+  }
+};
+
 </script>
 
 <template>
-  <form :class="cn('flex flex-col gap-6')" @submit.prevent="handleLogin">
+  <form :class="cn('flex flex-col gap-6')" @submit.prevent="handleSubmit">
     <div class="flex flex-col items-center gap-2 text-center">
       <h1 class="text-2xl font-bold">
         Login to your account
@@ -60,14 +54,13 @@ const handleLogin = async () => {
         </div>
         <Input id="password" type="password" placeholder="••••••••" v-model="password" required />
       </div>
-      <Button type="submit" class="w-full" :disabled="status == 'pending'">
-        <span v-if="status == 'pending'">Logging in...</span>
-        <span v-else>Login</span>
+      <Button type="submit" class="w-full">
+        <span>Login</span>
       </Button>
     </div>
-    <p v-if="error" class="text-red-500 text-sm text-center">
-      {{ error.message }}
-    </p>
+    <div class="text-center text-red-500" v-if="errorMessage">
+      <p>Your username or password is incorrect.</p>
+    </div>
   </form>
     <div>
     <div style="margin-top:15px;"

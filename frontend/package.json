@@ -11,11 +11,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@sidebase/nuxt-auth": "^0.10.1",
     "@vueuse/core": "^12.7.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "jwt-decode": "^4.0.0",
     "lucide-vue-next": "^0.476.0",
+    "next-auth": "^4.21.1",
     "nuxt": "^3.15.4",
     "reka-ui": "^2.0.0",
     "shadcn-nuxt": "^1.0.1",

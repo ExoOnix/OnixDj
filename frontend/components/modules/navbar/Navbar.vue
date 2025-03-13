@@ -4,7 +4,9 @@ import { defineComponent } from 'vue'
 
 defineComponent({})
 
-const { isLoggedIn } = useUser();
+
+const { status, getSession } = useAuth()
+const loggedIn = computed(() => status.value === "authenticated")
 
 </script>
 
@@ -14,8 +16,8 @@ const { isLoggedIn } = useUser();
         <div class="text-2xl font-bold">
             <NuxtLink to="/">Onix Boilerplate</NuxtLink>
         </div>
-        <ul v-if="isLoggedIn" class="flex space-x-4">
-            <Button asChild>
+        <ul class="flex space-x-4">
+            <Button v-if="!loggedIn" asChild>
                 <NuxtLink to="/login">Login</NuxtLink>
             </Button>
         </ul>

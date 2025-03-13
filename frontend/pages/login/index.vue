@@ -2,11 +2,17 @@
 import Navbar from '@/components/modules/navbar/Navbar.vue'
 
 export const description = 'A two column login page with a cover image.'
+
+
+definePageMeta({
+  middleware: 'sidebase-auth',
+  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/' }
+})
+
 </script>
 
 <script setup lang="ts">
 import LoginForm from '@/components/modules/auth/LoginForm.vue'
-import { GalleryVerticalEnd } from 'lucide-vue-next'
 </script>
 
 <template>

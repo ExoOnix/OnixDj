@@ -3,48 +3,12 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useAsyncData } from '#app'
-import { Configuration, DjRestAuthApi } from '@/lib/ApiClient'
 
 
-const { token, setToken } = useAccessToken()
-
-const apiConfig = new Configuration({
-  accessToken: () => token.value
-})
-const client = new DjRestAuthApi(apiConfig)
-
-// Inputs
-const email = ref('')
-const password1 = ref('')
-const password2 = ref('')
-
-// Message
-const successMessage = ref('')
-
-const { data, status, error, refresh } = useAsyncData('login', async () => {
-  if (!email.value || !password1.value || !password2.value) return null
-  return await client.djRestAuthRegistrationCreate({customRegister: {
-    email: email.value,
-    password1: password1.value,
-    password2: password2.value,
-  }})
-}, { immediate: false })
-
-const handleLogin = async () => {
-  await refresh()
-  if (data.value) {
-    successMessage.value = data.value.detail
-    email.value = ""
-    password1.value = ""
-    password2.value = ""
-    console.log('Login successful:', data.value.detail)
-  }
-}
 </script>
 
 <template>
-  <form :class="cn('flex flex-col gap-6')" @submit.prevent="handleLogin">
+  <form :class="cn('flex flex-col gap-6')">
     <div class="flex flex-col items-center gap-2 text-center">
       <h1 class="text-2xl font-bold">
         Create a new account
@@ -56,27 +20,20 @@ const handleLogin = async () => {
     <div class="grid gap-6">
       <div class="grid gap-2">
         <Label for="email">Email</Label>
-        <Input id="email" type="email" placeholder="m@example.com" v-model="email" required />
+        <Input id="email" type="email" placeholder="m@example.com" required />
       </div>
       <div class="grid gap-2">
         <Label for="password">Password</Label>
-        <Input id="password" type="password" placeholder="••••••••" v-model="password1" required />
+        <Input id="password" type="password" placeholder="••••••••" required />
       </div>
       <div class="grid gap-2">
         <Label for="confirmPassword">Confirm Password</Label>
-        <Input id="confirmPassword" type="password" placeholder="••••••••" v-model="password2" required />
+        <Input id="confirmPassword" type="password" placeholder="••••••••" required />
       </div>
-      <Button type="submit" class="w-full" :disabled="status == 'pending'">
-        <span v-if="status == 'pending'">Logging in...</span>
-        <span v-else>Sign Up</span>
+      <Button type="submit" class="w-full">
+        <span>Sign Up</span>
       </Button>
     </div>
-    <p v-if="successMessage" class="text-green-500 text-sm text-center">
-      {{ successMessage }}
-    </p>
-    <p v-if="error" class="text-red-500 text-sm text-center">
-      {{ error.message }}
-    </p>
   </form>
   <div>
     <div style="margin-top:15px;"
