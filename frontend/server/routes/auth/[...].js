@@ -81,15 +81,17 @@ export default NuxtAuthHandler({
             }
             // Refresh the backend token if necessary
             if (getCurrentEpochTime() > token["ref"]) {
-                const response = await axios({
-                    method: "post",
-                    url: "http://backend:8000/auth/token/refresh/",
-                    data: {
-                        refresh: token["refresh"],
+                const response = await fetch('http://backend:8000/auth/token/refresh/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
                     },
+                    body: JSON.stringify({refresh: token["refresh"]}),
                 });
-                token["access_token"] = response.data.access;
-                token["refresh_token"] = response.data.refresh;
+                const data = await response.json();
+                console.log("refreshed", data)
+                token["access_token"] = data.access;
+                token["refresh_token"] = data.refresh;
                 token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
             }
             return token;
