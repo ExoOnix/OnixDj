@@ -74,8 +74,8 @@ export default NuxtAuthHandler({
             if (user && account) {
                 let backendResponse = account.provider === "credentials" ? user : account.meta;
                 token["user"] = backendResponse.user;
-                token["access"] = backendResponse.access;
-                token["refresh"] = backendResponse.refresh;
+                token["access_token"] = backendResponse.access;
+                token["refresh_token"] = backendResponse.refresh;
                 token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
                 return token;
             }
@@ -88,8 +88,8 @@ export default NuxtAuthHandler({
                         refresh: token["refresh"],
                     },
                 });
-                token["access"] = response.data.access;
-                token["refresh"] = response.data.refresh;
+                token["access_token"] = response.data.access;
+                token["refresh_token"] = response.data.refresh;
                 token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
             }
             return token;

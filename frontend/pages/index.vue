@@ -1,10 +1,17 @@
-<script setup lang="ts">
+<script setup>
 import Navbar from '@/components/modules/navbar/Navbar.vue'
 import { Button } from '@/components/ui/button'
 
+const { getSession } = useAuth()
 
+onMounted(() => {
+  setInterval(() => {
+    getSession().then((values) => {
+      console.log(values['access_token']);
+    });
+  }, 10000);
+})
 
-const route = useRoute()
 
 
 // const { token, setToken } = useAccessToken();
@@ -20,7 +27,6 @@ const route = useRoute()
 <template>
   <div>
     <Navbar />
-
     <div class="py-12 text-center inter-montserrat svelte-ejp5be" style="margin-top: 100px; margin-bottom: 200px;">
       <div class="container mx-auto px-4" style="max-width: 70vw; width: 100%;">
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight lg:text-7xl">Accelerate Development by
