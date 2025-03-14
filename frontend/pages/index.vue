@@ -3,13 +3,15 @@ import Navbar from '@/components/modules/navbar/Navbar.vue'
 import { Button } from '@/components/ui/button'
 
 const { getSession } = useAuth()
-
+const getCurrentEpochTime = () => {
+    return Math.floor(new Date().getTime() / 1000);
+};
 onMounted(() => {
   setInterval(() => {
     getSession().then((values) => {
-      console.log(values['access_token']);
+      console.log(getCurrentEpochTime() - values['ref']);
     });
-  }, 10000);
+  }, 5000);
 })
 
 

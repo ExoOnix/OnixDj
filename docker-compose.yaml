@@ -31,5 +31,7 @@ services:
       dockerfile: ./compose/production/frontend/Dockerfile
     depends_on:
       - backend
+    env_file:
+      - .envs/production/.env
 volumes:
    postgres_data:

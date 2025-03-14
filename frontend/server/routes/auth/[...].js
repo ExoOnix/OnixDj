@@ -49,7 +49,6 @@ export default NuxtAuthHandler({
                     });
                     if (response.ok) {
                         const data = await response.json();
-                        console.log(data)
                         if (data) return data;
                     }
                     else {
@@ -77,19 +76,19 @@ export default NuxtAuthHandler({
                 token["access_token"] = backendResponse.access;
                 token["refresh_token"] = backendResponse.refresh;
                 token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
+                
                 return token;
             }
             // Refresh the backend token if necessary
             if (getCurrentEpochTime() > token["ref"]) {
-                const response = await fetch('http://backend:8000/auth/token/refresh/', {
+                const response = await fetch('http://backend:8000/api/dj-rest-auth/token/refresh/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({refresh: token["refresh"]}),
+                    body: JSON.stringify({refresh: token["refresh_token"]}),
                 });
                 const data = await response.json();
-                console.log("refreshed", data)
                 token["access_token"] = data.access;
                 token["refresh_token"] = data.refresh;
                 token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
