@@ -28,7 +28,7 @@ const loggedIn = computed(() => status.value === "authenticated")
           Using a Boilerplate</h1>
         <p class="mt-4 text-base">Streamline your development process with integrated authentication, powered by Vue and
           Django.</p>
-        <Button variant="outline" class="mt-3" v-if="!loggedIn" asChild><NuxtLink to="/register">Get Started</NuxtLink></Button>
+        <Button variant="outline" class="mt-3" v-if="!loggedIn" as-child><NuxtLink to="/register">Get Started</NuxtLink></Button>
       </div>
     </div>
 

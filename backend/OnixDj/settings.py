@@ -96,6 +96,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "dj_rest_auth.registration",
+    "rest_framework_simplejwt.token_blacklist",
     # Specs
     "drf_spectacular",
     "drf_spectacular_sidecar",

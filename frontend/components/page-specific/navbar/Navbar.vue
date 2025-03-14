@@ -1,13 +1,35 @@
-<script setup lang="ts">
+<script setup>
+import { LucideUser } from '#components'
 import { Button } from '@/components/ui/button'
-import { defineComponent } from 'vue'
+// Dropdown
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
-defineComponent({})
 
-
-const { status, getSession } = useAuth()
+const { status, getSession, signOut } = useAuth()
 const loggedIn = computed(() => status.value === "authenticated")
 
+
+const handleLogout = async () => {
+    const values = await getSession()
+    console.log(values['refresh_token'])
+    const response = await fetch('/api/dj-rest-auth/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({refresh: values['refresh_token']}),
+    });
+    console.log(response)
+    signOut({ callbackUrl: '/' })
+
+}
 </script>
 
 
@@ -17,14 +39,23 @@ const loggedIn = computed(() => status.value === "authenticated")
             <NuxtLink to="/">Onix Boilerplate</NuxtLink>
         </div>
         <ul class="flex space-x-4">
-            <Button v-if="!loggedIn" asChild>
+            <Button v-if="!loggedIn" as-child>
                 <NuxtLink to="/login">Login</NuxtLink>
             </Button>
+            <DropdownMenu v-else>
+                <DropdownMenuTrigger as-child>
+                    <Button variant="outline" size="icon">
+                        <LucideUser />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem @click="handleLogout">
+                        Logout
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </ul>
     </nav>
 </template>
-
-
-<style scoped>
-/* Optional: Add custom styles here */
-</style>
