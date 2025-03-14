@@ -42,7 +42,6 @@ RUN npm install --shamefully-hoist
 
 # Copy the rest of the application files to the working directory
 COPY ./frontend ./
-COPY ./frontend/api-schema.yml ./
 COPY --from=schema_builder /app/api-schema.yml ./
 
 RUN npm run genclient
