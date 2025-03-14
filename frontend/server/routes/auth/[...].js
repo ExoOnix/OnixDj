@@ -3,7 +3,7 @@ import { NuxtAuthHandler } from '#auth'
 
 // These two values should be a bit less than actual token lifetimes
 const BACKEND_ACCESS_TOKEN_LIFETIME = 4 * 60;            // 45 minutes
-const BACKEND_REFRESH_TOKEN_LIFETIME = 6 * 24 * 60 * 60;  // 6 days
+const BACKEND_REFRESH_TOKEN_LIFETIME = 0.8 * 24 * 60 * 60;  // 6 days
 
 const getCurrentEpochTime = () => {
     return Math.floor(new Date().getTime() / 1000);

@@ -1,5 +1,4 @@
 <script setup>
-import { LucideUser } from '#components'
 import { Button } from '@/components/ui/button'
 // Dropdown
 import {
@@ -10,6 +9,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+
+// Icons
+import { User } from 'lucide-vue-next';
 
 
 const { status, getSession, signOut } = useAuth()
@@ -26,7 +28,7 @@ const handleLogout = async () => {
         },
         body: JSON.stringify({refresh: values['refresh_token']}),
     });
-    console.log(response)
+    // console.log(response)
     signOut({ callbackUrl: '/' })
 
 }
@@ -45,7 +47,7 @@ const handleLogout = async () => {
             <DropdownMenu v-else>
                 <DropdownMenuTrigger as-child>
                     <Button variant="outline" size="icon">
-                        <LucideUser />
+                        <User />
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>

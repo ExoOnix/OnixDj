@@ -6,7 +6,6 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     'shadcn-nuxt',
     '@sidebase/nuxt-auth',
-    'nuxt-lucide-icons'
   ],
   shadcn: {
     /**
