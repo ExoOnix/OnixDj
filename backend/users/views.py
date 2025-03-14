@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from dj_rest_auth.registration.views import VerifyEmailView
 from dj_rest_auth.utils import jwt_encode
+from .serializers import CustomUserDetailsSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import login as django_login
@@ -31,9 +32,11 @@ class CustomVerifyEmailView(VerifyEmailView):
 
         access_token, refresh_token = jwt_encode(user)
 
+        user_data = CustomUserDetailsSerializer(user).data
+
         # Prepare the response data
         response_data = {
-            "user": str(user),
+            "user": user_data,
             "access": str(access_token),
             "refresh": str(refresh_token),
         }

@@ -11,7 +11,6 @@ definePageMeta({
 
 <script setup lang="ts">
 import RegisterForm from '@/components/page-specific/auth/RegisterForm.vue'
-import { GalleryVerticalEnd } from 'lucide-vue-next'
 </script>
 
 <template>
