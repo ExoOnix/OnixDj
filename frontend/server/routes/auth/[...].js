@@ -1,6 +1,4 @@
 import CredentialsProvider from "next-auth/providers/credentials";
-import GithubProvider from 'next-auth/providers/github'
-
 import { NuxtAuthHandler } from '#auth'
 
 // These two values should be a bit less than actual token lifetimes
@@ -20,7 +18,7 @@ const SIGN_IN_PROVIDERS = Object.keys(SIGN_IN_HANDLERS);
 
 export default NuxtAuthHandler({
     // A secret string you define, to ensure correct encryption
-    secret: 'your-secret-here',
+    secret: process.env.FRONTEND_SECRET_KEY.toString(),
     session: {
         strategy: "jwt",
         maxAge: BACKEND_REFRESH_TOKEN_LIFETIME,

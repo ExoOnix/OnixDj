@@ -43,6 +43,7 @@ services:
       - ./frontend:/app
     depends_on:
       - backend
-
+    env_file:
+      - .envs/production/.env
 volumes:
    postgres_data:
