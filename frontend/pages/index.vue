@@ -2,6 +2,9 @@
 import Navbar from '@/components/page-specific/navbar/Navbar.vue'
 import { Button } from '@/components/ui/button'
 
+const { status } = useAuth()
+const loggedIn = computed(() => status.value === "authenticated")
+
 // const { getSession } = useAuth()
 
 // import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
@@ -25,7 +28,7 @@ import { Button } from '@/components/ui/button'
           Using a Boilerplate</h1>
         <p class="mt-4 text-base">Streamline your development process with integrated authentication, powered by Vue and
           Django.</p>
-        <Button variant="outline" class="mt-3" asChild><NuxtLink to="/register">Get Started</NuxtLink></Button>
+        <Button variant="outline" class="mt-3" v-if="!loggedIn" asChild><NuxtLink to="/register">Get Started</NuxtLink></Button>
       </div>
     </div>
 
