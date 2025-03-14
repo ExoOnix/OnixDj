@@ -2,27 +2,17 @@
 import Navbar from '@/components/modules/navbar/Navbar.vue'
 import { Button } from '@/components/ui/button'
 
-const { getSession } = useAuth()
-const getCurrentEpochTime = () => {
-    return Math.floor(new Date().getTime() / 1000);
-};
-onMounted(() => {
-  setInterval(() => {
-    getSession().then((values) => {
-      console.log(getCurrentEpochTime() - values['ref']);
-    });
-  }, 5000);
-})
-
-
-
-// const { token, setToken } = useAccessToken();
+// const { getSession } = useAuth()
 
 // import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
 //  const apiConfig = new Configuration({
-//   accessToken: () => {return token.value}
+//   accessToken: async () => {
+//     const values = await getSession()
+//     return values['access_token'];
+//   }
 // })
 // const client = new DjRestAuthApi(apiConfig);
+
 
 </script>
 
