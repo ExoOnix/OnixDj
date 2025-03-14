@@ -1,5 +1,5 @@
 <script lang="ts">
-import Navbar from '@/components/modules/navbar/Navbar.vue'
+import Navbar from '@/components/page-specific/navbar/Navbar.vue'
 
 export const description = 'A two column login page with a cover image.'
 
@@ -12,7 +12,7 @@ definePageMeta({
 </script>
 
 <script setup lang="ts">
-import LoginForm from '@/components/modules/auth/LoginForm.vue'
+import LoginForm from '@/components/page-specific/auth/LoginForm.vue'
 </script>
 
 <template>

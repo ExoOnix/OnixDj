@@ -1,5 +1,5 @@
 <script setup>
-import Navbar from '@/components/modules/navbar/Navbar.vue'
+import Navbar from '@/components/page-specific/navbar/Navbar.vue'
 import { Button } from '@/components/ui/button'
 
 // const { getSession } = useAuth()
