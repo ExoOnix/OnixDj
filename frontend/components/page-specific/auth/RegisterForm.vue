@@ -1,14 +1,44 @@
-<script setup lang="ts">
+<script setup>
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
 
+const email = ref("")
+const password1 = ref("")
+const password2 = ref("")
 
+// Api client
+const apiConfig = new Configuration({})
+const client = new DjRestAuthApi(apiConfig);
+
+const successMessage = ref('')
+
+const { data, status, error, refresh } = useAsyncData('register', async () => {
+  successMessage.value = ""
+  if (!email.value || !password1.value || !password2.value) return null
+  return await client.djRestAuthRegistrationCreate({customRegister: {
+    email: email.value,
+    password1: password1.value,
+    password2: password2.value,
+  }})
+}, { immediate: false })
+
+const handleRegister = async () => {
+  await refresh()
+  if (data.value) {
+    successMessage.value = data.value.detail
+    email.value = ""
+    password1.value = ""
+    password2.value = ""
+    console.log('Register successful:', data.value.detail)
+  }
+}
 </script>
 
 <template>
-  <form :class="cn('flex flex-col gap-6')">
+  <form :class="cn('flex flex-col gap-6')" @submit.prevent="handleRegister">
     <div class="flex flex-col items-center gap-2 text-center">
       <h1 class="text-2xl font-bold">
         Create a new account
@@ -20,20 +50,27 @@ import { Label } from '@/components/ui/label'
     <div class="grid gap-6">
       <div class="grid gap-2">
         <Label for="email">Email</Label>
-        <Input id="email" type="email" placeholder="m@example.com" required />
+        <Input id="email" type="email" placeholder="m@example.com" v-model="email" required />
       </div>
       <div class="grid gap-2">
         <Label for="password">Password</Label>
-        <Input id="password" type="password" placeholder="••••••••" required />
+        <Input id="password" type="password" placeholder="••••••••" v-model="password1" required />
       </div>
       <div class="grid gap-2">
         <Label for="confirmPassword">Confirm Password</Label>
-        <Input id="confirmPassword" type="password" placeholder="••••••••" required />
+        <Input id="confirmPassword" type="password" placeholder="••••••••" v-model="password2" required />
       </div>
-      <Button type="submit" class="w-full">
-        <span>Sign Up</span>
+      <Button type="submit" class="w-full" :disabled="status == 'pending'">
+        <span v-if="status == 'pending'">Signing in...</span>
+        <span v-else>Sign Up</span>
       </Button>
     </div>
+    <p v-if="successMessage" class="text-green-500 text-sm text-center">
+      {{ successMessage }}
+    </p>
+    <p v-if="error" class="text-red-500 text-sm text-center">
+      There was an issue signing you up
+    </p>
   </form>
   <div>
     <div style="margin-top:15px;"
