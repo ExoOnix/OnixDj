@@ -14,6 +14,12 @@ def custom_confirm_email_view(request, key):
     )
 
 
+def password_reset_confirm_redirect(request, uidb64, token):
+    return HttpResponseRedirect(
+        f"{settings.PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL}{uidb64}/{token}/"
+    )
+
+
 class CustomVerifyEmailView(VerifyEmailView):
     def post(self, request, *args, **kwargs):
         # Deserialize the incoming data

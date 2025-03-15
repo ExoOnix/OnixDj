@@ -67,7 +67,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 EMAIL_CONFIRM_REDIRECT_BASE_URL = "/email/confirm/"
-
+PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL = "/password-reset/confirm/"
 # EMAILS
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST", "localhost")
