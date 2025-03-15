@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
-import { errorMessages } from 'vue/compiler-sfc'
 
 const email = ref("")
 const password1 = ref("")
