@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
+import { errorMessages } from 'vue/compiler-sfc'
 
 const email = ref("")
 const password1 = ref("")
@@ -28,12 +29,22 @@ const { data, status, error, refresh } = useAsyncData('register', async () => {
 const handleRegister = async () => {
   await refresh()
   if (data.value) {
-    successMessage.value = data.value.detail
-    email.value = ""
-    password1.value = ""
-    password2.value = ""
+    successMessage.value = "Verification e-mail sent"
     console.log('Register successful:', data.value.detail)
   }
+}
+
+const handleResend = async () => {
+  client.djRestAuthRegistrationResendEmailCreate({
+    resendEmailVerification: 
+      {
+        email: email.value
+      }
+    }
+  ).then(() => {
+    successMessage.value = "Registration email resent"
+    error.value = null
+  })
 }
 </script>
 
@@ -66,10 +77,10 @@ const handleRegister = async () => {
       </Button>
     </div>
     <p v-if="successMessage" class="text-green-500 text-sm text-center">
-      {{ successMessage }}
+      {{ successMessage }}. If you havent recieved an email, <span class="underline cursor-pointer" @click="handleResend">click here.</span>
     </p>
     <p v-if="error" class="text-red-500 text-sm text-center">
-      There was an issue signing you up
+      There was an issue signing you up. If already registered and havent recieved an email, <span class="underline cursor-pointer" @click="handleResend">click here.</span>
     </p>
   </form>
   <div>
