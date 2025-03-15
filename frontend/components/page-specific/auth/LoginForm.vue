@@ -48,9 +48,9 @@ const handleSubmit = async () => {
       <div class="grid gap-2">
         <div class="flex items-center">
           <Label for="password">Password</Label>
-          <a href="#" class="ml-auto text-sm underline-offset-4 hover:underline">
+          <NuxtLink to="/password-reset" class="ml-auto text-sm underline-offset-4 hover:underline">
             Forgot your password?
-          </a>
+          </NuxtLink>
         </div>
         <Input id="password" type="password" placeholder="••••••••" v-model="password" required />
       </div>
