@@ -1,3 +1,10 @@
+# TODO
+- [ ] Add logo
+- [ ] write readme
+- [ ] write social auth in frontend
+- [ ] write tech stack in readme
+- [ ] write table of simular projects and competitors. Better: django backend and built with best code speed.
+
 # 1: Setup
 
 
