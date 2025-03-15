@@ -4,6 +4,8 @@
 - [ ] write social auth in frontend
 - [ ] write tech stack in readme
 - [ ] write table of simular projects and competitors. Better: django backend and built with best code speed.
+- [ ] animations
+- [ ] delete account
 
 # 1: Setup
 
