@@ -14,15 +14,31 @@ const apiConfig = new Configuration({})
 const client = new DjRestAuthApi(apiConfig);
 
 const successMessage = ref('')
+const errorMessage = ref('')
 
 const { data, status, error, refresh } = useAsyncData('register', async () => {
   successMessage.value = ""
+  errorMessage.value = ""
   if (!email.value || !password1.value || !password2.value) return null
-  return await client.djRestAuthRegistrationCreate({customRegister: {
-    email: email.value,
-    password1: password1.value,
-    password2: password2.value,
-  }})
+  try {
+    return await client.djRestAuthRegistrationCreate({customRegister: {
+      email: email.value,
+      password1: password1.value,
+      password2: password2.value,
+    }})
+  } catch (err) {
+    const errResponse = await err.response.json()
+    let allErrors = [];
+    for (let key in errResponse) {
+      if (Array.isArray(errResponse[key])) {
+        allErrors = [...allErrors, ...errResponse[key]];  // Add each array of error messages
+      }
+    }
+
+    // Join them into one string to print
+    errorMessage.value = allErrors.join(" ");
+    console.log(errorMessage)
+  }
 }, { immediate: false })
 
 const handleRegister = async () => {
@@ -34,16 +50,19 @@ const handleRegister = async () => {
 }
 
 const handleResend = async () => {
-  client.djRestAuthRegistrationResendEmailCreate({
-    resendEmailVerification: 
-      {
-        email: email.value
-      }
-    }
-  ).then(() => {
+  try {
+    const response = await client.djRestAuthRegistrationResendEmailCreate({
+      resendEmailVerification: 
+        {
+          email: email.value
+        }
+    })
     successMessage.value = "Registration email resent"
-    error.value = null
-  })
+    errorMessage.value = ""
+  } catch (err) {
+    successMessage.value = ""
+    errorMessage.value = "Can not resend email, have you entered a valid email?"
+  }
 }
 </script>
 
@@ -59,7 +78,7 @@ const handleResend = async () => {
     </div>
     <div class="grid gap-6">
       <div class="grid gap-2">
-        <Label for="email">Email</Label>
+        <Label for="email">Email. <span class="underline cursor-pointer" @click="handleResend">To Resend Email</span></Label>
         <Input id="email" type="email" placeholder="m@example.com" v-model="email" required />
       </div>
       <div class="grid gap-2">
@@ -76,10 +95,10 @@ const handleResend = async () => {
       </Button>
     </div>
     <p v-if="successMessage" class="text-green-500 text-sm text-center">
-      {{ successMessage }}. If you havent recieved an email, <span class="underline cursor-pointer" @click="handleResend">click here.</span>
+      {{ successMessage }}. If you have not recieved an email, <span class="underline cursor-pointer" @click="handleResend">click here.</span>
     </p>
-    <p v-if="error" class="text-red-500 text-sm text-center">
-      There was an issue signing you up. If already registered and havent recieved an email, <span class="underline cursor-pointer" @click="handleResend">click here.</span>
+    <p v-if="errorMessage" class="text-red-500 text-sm text-center">
+      {{ errorMessage }}
     </p>
   </form>
   <div>
