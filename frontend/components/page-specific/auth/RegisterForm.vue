@@ -102,7 +102,7 @@ const handleResend = async () => {
     </p>
   </form>
   <div>
-    <div style="margin-top:15px;"
+    <!-- <div style="margin-top:15px;"
       class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
       <span class="relative z-10 bg-background px-2 text-muted-foreground">
         Or continue with
@@ -115,7 +115,7 @@ const handleResend = async () => {
           fill="currentColor" />
       </svg>
       Sign up with GitHub
-    </Button>
+    </Button> -->
     <div style="margin-top:15px;" class="text-center text-sm">
       Already have an account?
       <NuxtLink to="/login" class="underline underline-offset-4">

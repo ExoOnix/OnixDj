@@ -63,7 +63,7 @@ const handleSubmit = async () => {
     </div>
   </form>
     <div>
-    <div style="margin-top:15px;"
+    <!-- <div style="margin-top:15px;"
       class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
       <span class="relative z-10 bg-background px-2 text-muted-foreground">
         Or continue with
@@ -76,7 +76,7 @@ const handleSubmit = async () => {
           fill="currentColor" />
       </svg>
       Login with GitHub
-    </Button>
+    </Button> -->
   </div>
   <div style="margin-top:15px;" class="text-center text-sm">
     Don't have an account?
