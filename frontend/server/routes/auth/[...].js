@@ -38,7 +38,7 @@ export default NuxtAuthHandler({
             // `user` variable to the signIn() and jwt() callback
             async authorize(credentials, req) {
                 try {
-                    const response = await fetch('http://backend:8000/api/dj-rest-auth/login', {
+                    const response = await fetch('http://backend:8000/api/dj-rest-auth/login/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

@@ -21,7 +21,7 @@ const loggedIn = computed(() => status.value === "authenticated")
 const handleLogout = async () => {
     const values = await getSession()
     console.log(values['refresh_token'])
-    const response = await fetch('/api/dj-rest-auth/logout', {
+    const response = await fetch('/api/dj-rest-auth/logout/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
