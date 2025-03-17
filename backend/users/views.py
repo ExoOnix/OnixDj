@@ -1,11 +1,20 @@
 from django.http import HttpResponseRedirect
 from django.conf import settings
-from dj_rest_auth.registration.views import VerifyEmailView
+from dj_rest_auth.registration.views import VerifyEmailView, SocialLoginView
 from dj_rest_auth.utils import jwt_encode
 from .serializers import CustomUserDetailsSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import login as django_login
+from allauth.socialaccount.providers.github.views import GitHubOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from django.conf import settings
+
+
+class GithubLogin(SocialLoginView):
+    adapter_class = GitHubOAuth2Adapter
+    callback_url = settings.SITE_HOST
+    client_class = OAuth2Client
 
 
 def custom_confirm_email_view(request, key):

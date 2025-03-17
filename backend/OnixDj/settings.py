@@ -16,6 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_URL = ""
+SITE_HOST = os.getenv("SITE_HOST", "http://localhost/")
 
 ENVIRONMENT = os.getenv("DJANGO_ENV", "development")
 
@@ -79,6 +80,25 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "False").lower() == "true"
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 
+# Oauth setup
+SOCIALACCOUNT_PROVIDERS = {
+    "github": {
+        "APP": {
+            "client_id": "Ov23liSytzggK8FPZmw5",  # replace me
+            "secret": "014a7ba0fa5f34d325afc57ac9584c2b51daa80b",  # replace me
+            "key": "",  # leave empty
+        },
+        "SCOPE": [
+            "read:user",
+            "user:email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+        "VERIFIED_EMAIL": True,
+    },
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -100,6 +120,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "dj_rest_auth.registration",
     "rest_framework_simplejwt.token_blacklist",
+    # Social providers
+    "allauth.socialaccount.providers.github",
     # Specs
     "drf_spectacular",
     "drf_spectacular_sidecar",

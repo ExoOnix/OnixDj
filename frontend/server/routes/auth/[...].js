@@ -1,4 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
+
 import { NuxtAuthHandler } from '#auth'
 
 // These two values should be a bit less than actual token lifetimes
@@ -13,6 +15,22 @@ const SIGN_IN_HANDLERS = {
     "credentials": async (user, account, profile, email, credentials) => {
         return true;
     },
+    "github": async (user, account, profile, email, credentials) => {
+        try {
+            const response = await fetch('http://backend:8000/api/dj-rest-auth/github/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({access_token: account.access_token}),
+            });
+            account["meta"] = response.json();
+            return true;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }
 };
 const SIGN_IN_PROVIDERS = Object.keys(SIGN_IN_HANDLERS);
 
@@ -57,6 +75,17 @@ export default NuxtAuthHandler({
                 }
                 return null;
             },
+        }),
+        GithubProvider.default({
+            clientId: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+            authorization: {
+                params: {
+                    prompt: "consent",
+                    access_type: "offline",
+                    response_type: "code"
+                }
+            }
         }),
     ],
     callbacks: {

@@ -3,6 +3,7 @@ from users.views import (
     custom_confirm_email_view,
     CustomVerifyEmailView,
     password_reset_confirm_redirect,
+    GithubLogin,
 )
 
 urlpatterns = [
@@ -30,4 +31,6 @@ urlpatterns = [
     path(
         "dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")
     ),
+    path("dj-rest-auth/github/", GithubLogin.as_view(), name="github_login"),
+    path("accounts/", include("allauth.urls")),
 ]
