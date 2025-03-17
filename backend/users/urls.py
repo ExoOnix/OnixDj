@@ -32,5 +32,4 @@ urlpatterns = [
         "dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")
     ),
     path("dj-rest-auth/github/", GithubLogin.as_view(), name="github_login"),
-    path("accounts/", include("allauth.urls")),
 ]

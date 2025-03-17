@@ -44,6 +44,6 @@ services:
     depends_on:
       - backend
     env_file:
-      - .envs/production/.env
+      - .envs/local/.env
 volumes:
    postgres_data:
