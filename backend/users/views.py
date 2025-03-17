@@ -8,7 +8,6 @@ from rest_framework import status
 from django.contrib.auth import login as django_login
 from allauth.socialaccount.providers.github.views import GitHubOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-from django.conf import settings
 
 
 class GithubLogin(SocialLoginView):
