@@ -94,6 +94,7 @@
 ## Adding social providers
 
 To add custom oauth providers you would need to do a number of steps.
+This is an example of using the Google provider, however others can be implemented with the same steps.
 
 1. **Setup backend**
     1. Go to backend/OnixDj/settings.py and add your relevant provider to INSTALLED_APPS:
