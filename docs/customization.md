@@ -90,3 +90,119 @@
 │   └── tsconfig.json
 └── readme.md
 ```
+
+## Adding social providers
+
+To add custom oauth providers you would need to do a number of steps.
+
+1. **Setup backend**
+    1. Go to backend/OnixDj/settings.py and add your relevant provider to INSTALLED_APPS:
+    ```py
+    # backend/OnixDj/settings.py
+    INSTALLED_APPS = [
+        # ...
+        "allauth.socialaccount.providers.google",
+    ]
+    ```
+    2. Write Oauth2 keys in env (Both environments):
+    ```
+    # .envs/production/.env and .envs/local/.env
+    # ...
+    GOOGLE_CLIENT_ID=<your id>
+    GOOGLE_CLIENT_SECRET=<your secret>
+    ```
+    3. Write settings configuration:
+    ```py
+    # backend/OnixDj/settings.py
+    SOCIALACCOUNT_PROVIDERS = {
+        # ...
+        "google": {
+            "APP": {
+                "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+                "secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+                "key": "",  # leave empty
+            },
+            "SCOPE": [
+                "profile",
+                "email",
+            ],
+            "AUTH_PARAMS": {
+                "access_type": "online",
+            },
+            "VERIFIED_EMAIL": True,
+        },
+    }
+
+    ```
+    4. Add the relevant view:
+    ```py
+    # backend/users/views.py
+    from dj_rest_auth.registration.views import SocialLoginView
+    from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+    from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+
+
+    class GoogleLogin(SocialLoginView):
+        adapter_class = GoogleOAuth2Adapter
+        callback_url = settings.SITE_HOST
+        client_class = OAuth2Client
+    ```
+    5. Add it to the urls.py to serve the view:
+    ```py
+    from users.views import (
+        GoogleLogin,
+    )
+
+    urlpatterns = [
+        path("dj-rest-auth/google/", GoogleLogin.as_view(), name="google_login"),
+    ]
+    ```
+2. **Setup frontend**
+    1. Register the Google sign in handler in frontend/server/routes/auth/[...].js:
+    ```js
+    // frontend/server/routes/auth/[...].js
+    const SIGN_IN_HANDLERS = {
+        // ...
+        "google": async (user, account, profile, email, credentials) => {
+            try {
+                const response = await fetch('http://backend:8000/api/dj-rest-auth/google/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({access_token: account.access_token}),
+                });
+                account["meta"] = response.json();
+                return true;
+            } catch (error) {
+                console.error(error);
+                return false;
+            }
+        }
+    }
+    ```
+    2. add Google provider to the providers array:
+    ```js
+    // frontend/server/routes/auth/[...].js
+    // ...
+    import GoogleProvider from "next-auth/providers/google";
+    // ...
+    export default NuxtAuthHandler({
+        // ...
+        providers: [
+            // ...
+            GoogleProvider.default({
+                clientId: process.env.GOOGLE_CLIENT_ID,
+                clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+                authorization: {
+                    params: {
+                        prompt: "consent",
+                        access_type: "offline",
+                        response_type: "code"
+                    }
+                }
+            }),
+        ]
+
+    })
+    ```

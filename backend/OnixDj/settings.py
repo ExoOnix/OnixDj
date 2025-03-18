@@ -84,8 +84,8 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 SOCIALACCOUNT_PROVIDERS = {
     "github": {
         "APP": {
-            "client_id": "Ov23liSytzggK8FPZmw5",  # replace me
-            "secret": "014a7ba0fa5f34d325afc57ac9584c2b51daa80b",  # replace me
+            "client_id": os.getenv("GITHUB_CLIENT_ID"),
+            "secret": os.getenv("GITHUB_CLIENT_SECRET"),
             "key": "",  # leave empty
         },
         "SCOPE": [
