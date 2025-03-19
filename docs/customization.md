@@ -1,4 +1,4 @@
-# Setup Guide
+# Customization Guide
 
 ## Project structure
 ```
@@ -90,8 +90,9 @@
 │   └── tsconfig.json
 └── readme.md
 ```
+## Guides
 
-## Adding social providers
+### Adding social providers
 
 To add custom oauth providers you would need to do a number of steps.
 This is an example of using the Google provider, however others can be implemented with the same steps.
