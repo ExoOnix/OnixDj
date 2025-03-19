@@ -4,7 +4,7 @@
 ```
 ├── Makefile
 ├── backend # Backend folder
-│   ├── OnixDj
+│   ├── core
 │   │   ├── __init__.py
 │   │   ├── asgi.py
 │   │   ├── settings.py # Settings file for django
@@ -98,9 +98,9 @@ To add custom oauth providers you would need to do a number of steps.
 This is an example of using the Google provider, however others can be implemented with the same steps.
 
 1. **Setup backend**
-    1. Go to backend/OnixDj/settings.py and add your relevant provider to INSTALLED_APPS:
+    1. Go to backend/core/settings.py and add your relevant provider to INSTALLED_APPS:
     ```py
-    # backend/OnixDj/settings.py
+    # backend/core/settings.py
     INSTALLED_APPS = [
         # ...
         "allauth.socialaccount.providers.google",
@@ -115,7 +115,7 @@ This is an example of using the Google provider, however others can be implement
     ```
     3. Write settings configuration:
     ```py
-    # backend/OnixDj/settings.py
+    # backend/core/settings.py
     SOCIALACCOUNT_PROVIDERS = {
         # ...
         "google": {
