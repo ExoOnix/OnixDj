@@ -201,7 +201,11 @@ This is an example of using the Google provider, however others can be implement
                     },
                     body: JSON.stringify({access_token: account.access_token}),
                 });
-                account["meta"] = response.json();
+                if (!response.ok) {
+                    throw new Error(JSON.stringify({ errors: "You are unable to sign up", status: false }))
+                }
+                const responseData = await response.json();
+                account["meta"] = responseData;           
                 return true;
             } catch (error) {
                 console.error(error);
