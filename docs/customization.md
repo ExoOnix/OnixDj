@@ -1,6 +1,11 @@
 # Customization Guide
 
 ## Project structure
+
+The project is separated into a frontend and backend folder which hold their respective projects. For env configs a folder .envs is used. 
+
+In the backend, the users app is responsible for any authentication modifications.
+
 ```
 ├── Makefile
 ├── backend # Backend folder
