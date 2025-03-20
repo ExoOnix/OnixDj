@@ -102,6 +102,21 @@ The backend has DRF-spectacular which generates api schemas. The frontend docker
 ```
 ## Guides
 
+### Using the generated client
+In your components <script setup> paste:
+```js
+const { getSession } = useAuth()
+
+import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
+ const apiConfig = new Configuration({
+  accessToken: async () => {
+    const values = await getSession()
+    return values['access_token'];
+  }
+})
+const client = new DjRestAuthApi(apiConfig);
+```
+
 ### Adding social providers
 
 To add custom oauth providers you would need to do a number of steps.
