@@ -2,9 +2,12 @@
 
 ## Project structure
 
-The project is separated into a frontend and backend folder which hold their respective projects. For env configs a folder .envs is used. 
 
-In the backend, the users app is responsible for any authentication modifications.
+The project is organized into two main directories:
+- frontend/ – Contains the Nuxt-based frontend.
+- backend/ – Contains the Django-based backend.
+
+Environment-specific configurations are stored in .envs/, and Docker configurations for different environments are in compose/. Authentication-related logic is handled within the users app in the backend.
 
 ```
 ├── Makefile
