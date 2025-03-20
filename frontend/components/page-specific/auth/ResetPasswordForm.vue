@@ -12,7 +12,7 @@ const errorMessage = ref("")
 const route = useRoute()
 
 import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
-const apiConfig = new Configuration({})
+const apiConfig = new Configuration({basePath: useRuntimeConfig().public.SiteHost})
 const client = new DjRestAuthApi(apiConfig);
 
 const { data, status, error, refresh } = useAsyncData('reset_password', async () => {

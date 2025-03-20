@@ -109,6 +109,7 @@ const { getSession } = useAuth()
 
 import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
  const apiConfig = new Configuration({
+  basePath: useRuntimeConfig().public.SiteHost,
   accessToken: async () => {
     const values = await getSession()
     return values['access_token'];

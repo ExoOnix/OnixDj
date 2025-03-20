@@ -40,4 +40,6 @@ make prod
 This will:
 - Build all containers and serve them.
 
-   
+## Whats next?
+
+Visit the customization guide to get to know the codebase.

@@ -16,7 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_URL = ""
-SITE_HOST = os.getenv("SITE_HOST", "http://localhost/")
+SITE_HOST = os.getenv("SITE_HOST", "http://localhost") + "/"
 
 ENVIRONMENT = os.getenv("DJANGO_ENV", "development")
 

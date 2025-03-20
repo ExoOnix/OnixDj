@@ -26,5 +26,10 @@ export default defineNuxtConfig({
       defaultProvider: 'credentials',
       addDefaultCallbackUrl: true,
     }
-  }
+  },
+  runtimeConfig: {
+    public: {
+      SiteHost: 'http://localhost'
+    }
+  },
 })

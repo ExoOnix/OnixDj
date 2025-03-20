@@ -5,16 +5,6 @@ import { Button } from '@/components/ui/button'
 const { status } = useAuth()
 const loggedIn = computed(() => status.value === "authenticated")
 
-// const { getSession } = useAuth()
-
-// import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
-//  const apiConfig = new Configuration({
-//   accessToken: async () => {
-//     const values = await getSession()
-//     return values['access_token'];
-//   }
-// })
-// const client = new DjRestAuthApi(apiConfig);
 
 
 </script>

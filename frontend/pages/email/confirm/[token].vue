@@ -2,7 +2,7 @@
 import { Configuration, DjRestAuthApi } from '@/lib/ApiClient'
 
 // Api client
-const apiConfig = new Configuration({})
+const apiConfig = new Configuration({basePath: useRuntimeConfig().public.SiteHost})
 const client = new DjRestAuthApi(apiConfig)
 
 const route = useRoute()
@@ -20,6 +20,7 @@ const verifyEmail = async () => {
   }
 }
 
-// Call the verifyEmail function
-verifyEmail()
+onMounted(() => {
+  verifyEmail()
+})
 </script>
