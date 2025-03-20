@@ -9,6 +9,8 @@ The project is organized into two main directories:
 
 Environment-specific configurations are stored in .envs/, and Docker configurations for different environments are in compose/. Authentication-related logic is handled within the users app in the backend.
 
+The backend has DRF-spectacular which generates api schemas. The frontend docker container creates the schema and uses it to build the api client.
+
 ```
 ├── Makefile
 ├── backend # Backend folder
