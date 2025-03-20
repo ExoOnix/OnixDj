@@ -116,9 +116,8 @@ import {Configuration, DjRestAuthApi } from '@/lib/ApiClient'
   }
 })
 const client = new DjRestAuthApi(apiConfig);
-
-You can now call client methods to use the api.
 ```
+You can now call client methods to use the api.
 
 ### Adding social providers
 
