@@ -16,10 +16,15 @@ With this setup, you get a pre-configured environment for full-stack development
 ## Features
 
 - ✅ Pre-configured **Auth.js** with Nuxt for authentication  
-- ✅ Django backend with **dj-rest-auth** for token-based authentication  
+- ✅ Django backend with **dj-rest-auth** for jwt-based authentication  
 - ✅ RESTful API setup using **Django REST Framework**  
 - ✅ Seamless frontend-backend communication  
 - ✅ **Client generation** for API consumption  
-- ✅ Full authentication support, including **email/password authentication** and **social authentication (Google, GitHub, etc.)**  
+- ✅ Full authentication support, including:
+    - Email/password authentication
+    - Social authentication (Google, GitHub, etc.)
+    - Password reset functionality
+    - Email confirmation
+    - Forgot password flow
 
 This wiki will guide you through setup, usage, and customization of the boilerplate. 🚀
