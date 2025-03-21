@@ -1,14 +1,12 @@
 <script setup>
-import Navbar from '~/components/page-specific/navbar/Navbar.vue'
-import ResetPasswordEmailForm from '~/components/page-specific/auth/ResetPasswordEmailForm.vue';
+import Navbar from "~/components/page-specific/navbar/Navbar.vue";
+import ResetPasswordEmailForm from "~/components/page-specific/auth/ResetPasswordEmailForm.vue";
 
 definePageMeta({
-  middleware: 'sidebase-auth',
-  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/' }
-})
+  middleware: "sidebase-auth",
+  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: "/" },
+});
 </script>
-
-
 
 <template>
   <div class="flex flex-col min-h-screen">
@@ -24,8 +22,11 @@ definePageMeta({
         </div>
       </div>
       <div class="relative hidden bg-muted lg:block">
-        <img src="https://www.shadcn-vue.com/placeholder.svg" alt="Image"
-          class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale">
+        <img
+          src="https://www.shadcn-vue.com/placeholder.svg"
+          alt="Image"
+          class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        />
       </div>
     </div>
   </div>

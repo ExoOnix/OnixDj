@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <NuxtPage />
@@ -9,4 +8,3 @@
 <style>
 @import "~/assets/css/main.css";
 </style>
-

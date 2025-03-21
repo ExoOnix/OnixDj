@@ -1,16 +1,16 @@
 <script lang="ts">
-import Navbar from '@/components/page-specific/navbar/Navbar.vue'
+import Navbar from "@/components/page-specific/navbar/Navbar.vue";
 
-export const description = 'A two column login page with a cover image.'
+export const description = "A two column login page with a cover image.";
 
 definePageMeta({
-  middleware: 'sidebase-auth',
-  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/' }
-})
+  middleware: "sidebase-auth",
+  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: "/" },
+});
 </script>
 
 <script setup lang="ts">
-import RegisterForm from '@/components/page-specific/auth/RegisterForm.vue'
+import RegisterForm from "@/components/page-specific/auth/RegisterForm.vue";
 </script>
 
 <template>
@@ -27,8 +27,11 @@ import RegisterForm from '@/components/page-specific/auth/RegisterForm.vue'
         </div>
       </div>
       <div class="relative hidden bg-muted lg:block">
-        <img src="https://www.shadcn-vue.com/placeholder.svg" alt="Image"
-          class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale">
+        <img
+          src="https://www.shadcn-vue.com/placeholder.svg"
+          alt="Image"
+          class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+        />
       </div>
     </div>
   </div>
