@@ -34,7 +34,7 @@ const handleLogout = async () => {
 <template>
   <nav class="w-full p-4 bg-white shadow-md flex justify-between items-center">
     <div class="text-2xl font-bold">
-      <NuxtLink to="/">Onix Boilerplate</NuxtLink>
+      <NuxtLink to="/">OnixDj</NuxtLink>
     </div>
     <ul class="flex space-x-4">
       <Button v-if="!loggedIn" as-child>
