@@ -47,6 +47,7 @@ export default NuxtAuthHandler({
     },
     pages: {
         signIn: '/login',
+        error: '/login'
     },
 
     providers: [

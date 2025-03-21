@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-
+const route = useRoute()
 
 
 const { signIn } = useAuth()
@@ -12,6 +12,10 @@ const { signIn } = useAuth()
 const email = ref("")
 const password = ref("")
 const errorMessage = ref(false);
+
+if (route.query.error) {
+  errorMessage.value = true
+}
 
 const handleSubmit = async () => {
   const res = await signIn('credentials', {
