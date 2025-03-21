@@ -30,6 +30,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       SiteHost: 'http://localhost'
-    }
+    },
+    AuthSecretKey: ''
   },
 })

@@ -40,7 +40,7 @@ const SIGN_IN_PROVIDERS = Object.keys(SIGN_IN_HANDLERS);
 
 export default NuxtAuthHandler({
     // A secret string you define, to ensure correct encryption
-    secret: process.env.FRONTEND_SECRET_KEY.toString(),
+    secret: useRuntimeConfig().AuthSecretKey,
     session: {
         strategy: "jwt",
         maxAge: BACKEND_REFRESH_TOKEN_LIFETIME,
