@@ -1,6 +1,7 @@
 # Use the official Python image as the base image
 FROM python:3.13-slim
 
+RUN apt update && apt install -y postgresql-client
 
 # Create the app directory
 RUN mkdir /app

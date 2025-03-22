@@ -20,7 +20,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/backend/Dockerfile
-    command: sh -c "python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 --workers 3 core.wsgi:application"
+    command: sh -c "until pg_isready -h db -p 5432; do sleep 1; done; python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 --workers 3 core.wsgi:application"
     depends_on:
       - db
     env_file:

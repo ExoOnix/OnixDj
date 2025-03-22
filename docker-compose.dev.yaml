@@ -30,7 +30,7 @@ services:
       dockerfile: ./compose/development/backend/Dockerfile
     volumes:
       - ./backend:/app
-    command: sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+    command: sh -c "until pg_isready -h db -p 5432; do sleep 1; done; python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
     env_file:
