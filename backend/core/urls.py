@@ -25,6 +25,8 @@ urlpatterns = [
         settings.BASE_URL,
         include(
             [
+                path("api/todo/", include("todo.urls")),
+                # Auth
                 path("admin/", admin.site.urls),
                 path("api/", include("users.urls")),
                 path(
