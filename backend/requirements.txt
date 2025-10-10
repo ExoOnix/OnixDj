@@ -1,4 +1,4 @@
-django==5.1.6
+django==5.1.13
 djangorestframework==3.15.2
 dj-rest-auth[with_social]==7.0.0
 django-allauth==0.61.1
